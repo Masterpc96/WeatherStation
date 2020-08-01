@@ -76,7 +76,7 @@ void temperature_sensor_identify(homekit_value_t _value) {
 
 
 void temperature_sensor_init() {
-    xTaskCreate(temperature_sensor_task, "Temperatore Sensor", 256, NULL, 2, NULL);
+    xTaskCreate(temperature_sensor_task, "Temperature Sensor", 256, NULL, 2, NULL);
 }
 
 
@@ -84,10 +84,10 @@ homekit_accessory_t *accessories[] = {
     HOMEKIT_ACCESSORY(.id=1, .category=homekit_accessory_category_thermostat, .services=(homekit_service_t*[]) {
         HOMEKIT_SERVICE(ACCESSORY_INFORMATION, .characteristics=(homekit_characteristic_t*[]) {
             HOMEKIT_CHARACTERISTIC(NAME, "Temperature Sensor"),
-            HOMEKIT_CHARACTERISTIC(MANUFACTURER, "HaPK"),
-            HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, "0012345"),
-            HOMEKIT_CHARACTERISTIC(MODEL, "MyTemperatureSensor"),
-            HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "0.1"),
+            HOMEKIT_CHARACTERISTIC(MANUFACTURER, "Michael's software"),
+            HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, "0x10"),
+            HOMEKIT_CHARACTERISTIC(MODEL, "Clear Sky"),
+            HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.0"),
             HOMEKIT_CHARACTERISTIC(IDENTIFY, temperature_sensor_identify),
             NULL
         }),
@@ -116,7 +116,7 @@ void user_init(void) {
 
     i2c_init(i2c_bus, scl_pin, sda_pin, I2C_FREQ_400K);
 
-    wifi_config_init2("Apple Home 0x90", NULL, on_wifi_event);
+    wifi_config_init2("Apple Home 0x10", NULL, on_wifi_event);
     temperature_sensor_init();
     homekit_server_init(&config);
 
